@@ -8,7 +8,7 @@ body{
 }
 .card{
     width:250px;
-    height: 330px;
+    height: 380px;
     border: 1px solid gray;
 }
 
@@ -25,4 +25,15 @@ body{
 .card-btn{
     background-color: aqua;
     color: black;
+}
+
+.home-container{
+    display: flex;
+}
+
+.card-container{
+    width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
 }
