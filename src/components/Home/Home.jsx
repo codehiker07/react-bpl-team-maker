@@ -6,21 +6,32 @@ import './Home.css';
 
 
 const Home = () => {
-
     const [allActors, setAllActors] = useState([]);
-
+    const [selectedActors, setSelectedActors] = useState([]);
 
     useEffect(() => {
         fetch('./data.json')
             .then(res => res.json())
-            .then(data =>setAllActors(data))
+            .then(data =>setAllActors(data));
     }, []);
 
-    const handleSelectActor = () => {
-        console.log('Hello');
-    }
+    const handleSelectActor = (actor) => {
+        const isExist = selectedActors.find((item) => item.id ==actor.id);
+        let count =actor.salary;
 
-    console.log(allActors);
+        if(isExist){
+            return alert('Already Booked');
+        }else{
+            selectedActors.forEach((item) =>{
+                count = count + item.salary;
+            });
+            // console.log(count);
+            setSelectedActors([...selectedActors, actor]);
+        }
+        
+    };
+
+// console.log(selectedActors);
 
     return (
         <div className='container'>
@@ -34,16 +45,16 @@ const Home = () => {
                         <h2>{actor.name}</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium, facilis.</p>
                         <div className="info">
-                            <p>Salary: {actor.salary}$</p>
+                            <p>Salary: {actor.salary} $</p>
                             <p>{actor.role}</p>
                         </div>
-                        <button onClick={handleSelectActor} className='card-btn'>Select</button>
+                        <button onClick={()=>handleSelectActor(actor)} className='card-btn'>Select</button>
                     </div>
                     ))
                     }
                 </div>
                 <div className="cart">
-                    <h2>This is cart</h2>
+                    <Cart selectedActors={selectedActors}></Cart>
                 </div>
 
             </div>
