@@ -8,6 +8,8 @@ import './Home.css';
 const Home = () => {
     const [allActors, setAllActors] = useState([]);
     const [selectedActors, setSelectedActors] = useState([]);
+    const [remaining, setRemaining] = useState(0);
+    const [totalCost, setTotalCost] = useState();
 
     useEffect(() => {
         fetch('./data.json')
@@ -26,7 +28,16 @@ const Home = () => {
                 count = count + item.salary;
             });
             // console.log(count);
+            const totalRemaining = 20000- count;
+
+            if(count > 20000){
+                return alert('Taka Naire Vai')
+            }else{
+                setTotalCost(count);
+            setRemaining(totalRemaining);
             setSelectedActors([...selectedActors, actor]);
+            }
+            
         }
         
     };
@@ -54,7 +65,7 @@ const Home = () => {
                     }
                 </div>
                 <div className="cart">
-                    <Cart selectedActors={selectedActors}></Cart>
+                    <Cart selectedActors={selectedActors} remaining={remaining} totalCost={totalCost}></Cart>
                 </div>
 
             </div>
